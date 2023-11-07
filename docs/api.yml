@@ -54,7 +54,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
 
-  /put /books/{bookId}/authors/{authorId}:
+  /books/{bookId}/authors/{authorId}:
     put:
       summary: Attach author to a book
       description: Attach author to a book by id.
@@ -122,6 +122,22 @@ paths:
       responses:
         204:
           description: Authors successfully deleted
+  /books/authors:
+    put:
+      summary: Attach authors to books
+      description: Attach many authors to many books by id.
+      operationId: attachAuthorsToBooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/UpdateBookAuthor"
+      responses:
+        204:
+          description: Authors successfully attached to the books
+
 components:
   schemas:
     Book:
@@ -157,6 +173,15 @@ components:
             - pageNumbers
             - topic
             - releaseDate
+    UpdateBookAuthor:
+      type: object
+      properties:
+        bookId:
+          type: string
+          description: The ID of the book to update/attach an author
+        authorId:
+           type: string
+           description: The ID of the author to attach to the book
 
     Author:
       type: object

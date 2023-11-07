@@ -56,6 +56,8 @@ paths:
 
   /books/{bookId}/authors/{authorId}:
     put:
+      tags:
+        - books
       summary: Attach author to a book
       description: Attach author to a book by id.
       operationId: attachAuthorToBook
@@ -73,7 +75,7 @@ paths:
           schema:
             type: string
       responses:
-        204:
+        200:
          description: Author successfully attached to the book
 
   /authors:
@@ -120,7 +122,7 @@ paths:
       summary: Delete authors
       operationId: deleteAuthors
       responses:
-        204:
+        200:
           description: Authors successfully deleted
   /books/authors:
     put:
@@ -135,7 +137,7 @@ paths:
               items:
                 $ref: "#/components/schemas/UpdateBookAuthor"
       responses:
-        204:
+        200:
           description: Authors successfully attached to the books
 
 components:

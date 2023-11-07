@@ -126,6 +126,9 @@ paths:
           description: Authors successfully deleted
   /books/authors:
     put:
+      tags:
+        - books
+        - author
       summary: Attach authors to books
       description: Attach many authors to many books by id.
       operationId: attachAuthorsToBooks

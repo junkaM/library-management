@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.0.1
-  description: STD22001
+  version: 1.1.0
+  description: STD22065
 servers:
   - url: https://library.com
 paths:
@@ -53,6 +53,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+
+  /put /books/{bookId}/authors/{authorId}:
+    put:
+      summary: Attach author to a book
+      description: Attach author to a book by id.
+      operationId: attachAuthorToBook
+      parameters:
+        - in: path
+          name: bookId
+          description: The id of the book
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: authorId
+          description: The id of the author
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+         description: Author successfully attached to the book
+
   /authors:
     get:
       summary: Get all authors
@@ -121,6 +144,20 @@ components:
         releaseDate:
           type: string
           format: date
+
+    crupdateBooks:
+      type: object
+      
+      allOf:
+          - $ref: '#/components/schemas/Book'
+          - type: object
+          - required:
+            - id
+            - bookName
+            - pageNumbers
+            - topic
+            - releaseDate
+
     Author:
       type: object
       properties:
@@ -133,21 +170,3 @@ components:
           enum:
             - M
             - F
-    crupdateBooks:
-      type: object
-      properties:
-        id:
-          type: string
-        bookName:
-          type: string
-        pageNumbers:
-          type: string
-        topic:
-          type: string
-          enum:
-            - ROMANCE
-            - COMEDY
-            - OTHER
-        releaseDate:
-          type: string  
-          format: date

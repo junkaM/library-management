@@ -12,6 +12,7 @@ paths:
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
       parameters:
+        - $ref: '#/components/parameters/queryPagination'
         - in: query
           name: bookName
           description: Filter return books by given name
@@ -84,6 +85,7 @@ paths:
       description: Get a list of all authors.
       operationId: getAuthors
       parameters:
+        - $ref: '#/components/parameters/pathPagination'
         - in: query
           name: authorName
           description: Filter authors by name
@@ -144,6 +146,22 @@ paths:
           description: Authors successfully attached to the books
 
 components:
+  parameters:
+    queryPagination:
+      name: page
+      in: query
+      description: Number of the page
+      schema:
+        type: integer
+        default: 1
+    pathPagination:
+      name: page
+      required: true
+      in: path
+      description: number of the page
+      schema: 
+        type: integer
+        default: 1
   schemas:
     Book:
       type: object

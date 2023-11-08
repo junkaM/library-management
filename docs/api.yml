@@ -8,6 +8,8 @@ servers:
 paths:
   /books:
     get:
+      tags:
+        - books
       summary: Get all books
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
@@ -34,8 +36,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/Book' 
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
+          
     put:
+      tags:
+        - books
       summary: Create or update a list of books
       operationId: crupdateBooks
       requestBody:
@@ -54,11 +65,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
 
   /books/{bookId}/authors/{authorId}:
     put:
       tags:
-        - books
+        - author
       summary: Attach author to a book
       description: Attach author to a book by id.
       operationId: attachAuthorToBook
@@ -78,9 +95,17 @@ paths:
       responses:
         200:
          description: Author successfully attached to the book
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
 
   /authors:
     get:
+      tags:
+        - author
       summary: Get all authors
       description: Get a list of all authors.
       operationId: getAuthors
@@ -101,7 +126,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
+
     put:
+      tags:
+        - author
       summary: Create or update authors
       operationId: crupdateAuthors
       requestBody:
@@ -120,16 +154,31 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
+
     delete:
+      tags:
+        - author
       summary: Delete authors
       operationId: deleteAuthors
       responses:
         200:
           description: Authors successfully deleted
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
+
   /books/authors:
     put:
       tags:
-        - books
         - author
       summary: Attach authors to books
       description: Attach many authors to many books by id.
@@ -144,8 +193,22 @@ paths:
       responses:
         200:
           description: Authors successfully attached to the books
+        400:
+          $ref: '#/components/responses/ApiResponse/400'
+        403:
+          $ref: '#/components/responses/ApiResponse/403'
+        500:
+          $ref: '#/components/responses/ApiResponse/500'
 
 components:
+  responses:
+    ApiResponse:
+      400:
+        description: Bad request
+      403:
+        description: Forbidden
+      500:
+        description: Internal Server Error
   parameters:
     queryPagination:
       name: page
@@ -186,7 +249,6 @@ components:
 
     crupdateBooks:
       type: object
-      
       allOf:
           - $ref: '#/components/schemas/Book'
           - type: object

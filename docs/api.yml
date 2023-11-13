@@ -53,6 +53,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
   /authors:
     get:
       summary: Get all authors
@@ -74,6 +78,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
     put:
       summary: Create or update authors
       operationId: crupdateAuthors
@@ -93,12 +101,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
     delete:
       summary: Delete authors
       operationId: deleteAuthors
       responses:
-        204:
+        200:
           description: Authors successfully deleted
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
 components:
   responses:
       BookList_200:
